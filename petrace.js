@@ -47,23 +47,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (btnGoogle) {
-        btnGoogle.addEventListener('click', async (e) => {
-            e.preventDefault();
-            console.log("Botão do Google clicado com sucesso!");
-            
-            try {
-                const { data, error } = await supabase.auth.signInWithOAuth({
-                    provider: 'google',
-                    options: {
-    redirectTo: window.location.origin + window.location.pathname.replace('petrace.html', 'index.html')
-                    }
-                });
+    btnGoogle.addEventListener('click', async (e) => {
+        e.preventDefault();
+        console.log("Botão do Google clicado com sucesso!");
+        
+        try {
+            const { data, error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    // Isso pega o link atual (ex: .../NOME_DO_REPOSITORIO/) e troca o petrace.html por index.html
+                    redirectTo: window.location.origin + window.location.pathname.replace('petrace.html', 'index.html')
+                }
+            });
 
-                if (error) throw error;
-            } catch (error) {
-                console.error('Erro ao autenticar com o Google:', error.message);
-                alert(`Erro no login com Google: ${error.message}`);
-            }
-        });
+            if (error) throw error;
+        } catch (error) {
+            console.error('Erro ao autenticar com o Google:', error.message);
+            alert(`Erro no login com Google: ${error.message}`);
+        }
+    });
     }
-});
